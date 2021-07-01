@@ -54,7 +54,7 @@ function span(t, f) {
 }
 
 function groupWhile(t, f) {
-  var groupWhileHelper = function (t, f) {
+  var takeWhileHelper = function (t, f) {
     if (!t) {
       return /* [] */0;
     }
@@ -65,10 +65,10 @@ function groupWhile(t, f) {
               hd: x,
               tl: match[0]
             },
-            tl: groupWhileHelper(match[1], f)
+            tl: takeWhileHelper(match[1], f)
           };
   };
-  return groupWhileHelper(t, f);
+  return takeWhileHelper(t, f);
 }
 
 var x = {
