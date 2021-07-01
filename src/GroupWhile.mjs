@@ -54,7 +54,7 @@ function span(t, f) {
 }
 
 function groupWhile(t, f) {
-  var takeWhileHelper = function (t, f) {
+  var groupWhileHelper = function (t, f) {
     if (!t) {
       return /* [] */0;
     }
@@ -65,41 +65,17 @@ function groupWhile(t, f) {
               hd: x,
               tl: match[0]
             },
-            tl: takeWhileHelper(match[1], f)
+            tl: groupWhileHelper(match[1], f)
           };
   };
-  return takeWhileHelper(t, f);
+  return groupWhileHelper(t, f);
 }
-
-var x = {
-  hd: 1,
-  tl: {
-    hd: 2,
-    tl: {
-      hd: 3,
-      tl: {
-        hd: 4,
-        tl: /* [] */0
-      }
-    }
-  }
-};
-
-function f(i1, i2) {
-  return Math.imul(i1, i2) % 2 === 0;
-}
-
-console.log(groupWhile(x, f));
-
-console.log(Belt_List.toArray(groupWhile(x, f)));
 
 export {
   dropWhile ,
   takeWhile ,
   span ,
   groupWhile ,
-  x ,
-  f ,
   
 }
-/*  Not a pure module */
+/* No side effect */

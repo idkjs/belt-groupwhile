@@ -38,17 +38,14 @@ let span = (t, ~f) =>
   }
 
 let groupWhile = (t, ~f) => {
-  let rec takeWhileHelper = (t, ~f) =>
+  let rec groupWhileHelper = (t, ~f) =>
     switch t {
     | list{} => list{}
     | list{x, ...rest} =>
       let (ys, zs) = span(rest, ~f=f(x))
-      list{list{x, ...ys}, ...takeWhileHelper(zs, ~f)}
+      list{list{x, ...ys}, ...groupWhileHelper(zs, ~f)}
     }
 
-  takeWhileHelper(t, ~f)
+  groupWhileHelper(t, ~f)
 }
-let x = list{1, 2, 3, 4}
-let f = (i1, i2) => mod(i1 * i2, 2) == 0
-groupWhile(x, ~f)->Js.log
-groupWhile(x, ~f)->Belt.List.toArray->Js.log
+
