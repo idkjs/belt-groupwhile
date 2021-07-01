@@ -1,5 +1,7 @@
 type t<'a> = list<'a>
 
+
+
 let rec dropWhile = (t, ~f) =>
   switch t {
   | list{} => list{}
@@ -10,6 +12,7 @@ let rec dropWhile = (t, ~f) =>
       t
     }
   }
+
 
 let takeWhile = (t, ~f) => {
   let rec takeWhileHelper = (acc, t) =>
@@ -26,6 +29,8 @@ let takeWhile = (t, ~f) => {
   takeWhileHelper(list{}, t)
 }
 
+
+
 let span = (t, ~f) =>
   switch t {
   | list{} => (list{}, list{})
@@ -33,15 +38,15 @@ let span = (t, ~f) =>
   }
 
 let groupWhile = (t, ~f) => {
-  let rec groupWhileHelper = (t, ~f) =>
+  let rec takeWhileHelper = (t, ~f) =>
     switch t {
     | list{} => list{}
     | list{x, ...rest} =>
       let (ys, zs) = span(rest, ~f=f(x))
-      list{list{x, ...ys}, ...groupWhileHelper(zs, ~f)}
+      list{list{x, ...ys}, ...takeWhileHelper(zs, ~f)}
     }
 
-  groupWhileHelper(t, ~f)
+  takeWhileHelper(t, ~f)
 }
 let x = list{1, 2, 3, 4}
 let f = (i1, i2) => mod(i1 * i2, 2) == 0
