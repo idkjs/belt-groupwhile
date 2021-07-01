@@ -1,7 +1,5 @@
 type t<'a> = list<'a>
 
-
-
 let rec dropWhile = (t, ~f) =>
   switch t {
   | list{} => list{}
@@ -12,7 +10,6 @@ let rec dropWhile = (t, ~f) =>
       t
     }
   }
-
 
 let takeWhile = (t, ~f) => {
   let rec takeWhileHelper = (acc, t) =>
@@ -28,8 +25,6 @@ let takeWhile = (t, ~f) => {
 
   takeWhileHelper(list{}, t)
 }
-
-
 
 let span = (t, ~f) =>
   switch t {
